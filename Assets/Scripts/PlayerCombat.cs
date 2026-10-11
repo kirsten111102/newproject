@@ -12,10 +12,23 @@ public class PlayerCombat : MonoBehaviour
     private LayerMask enemyLayer;
     [SerializeField]
     private float attackCooldown = 0.5f;
+    [SerializeField]
+    private float attackPointDistance = 0.7f;
     private float nextAttackTime;
+    private Vector2 lastMoveDirection = Vector2.right;
+    [SerializeField]
+    private LineRenderer attackCircle;
+    [SerializeField]
+    private int circleSegments = 60;
+    private void Start()
+    {
+        DrawAttackCircle();
+    }
     // Update is called once per frame
     private void Update()
     {
+        UpdateAttackDirection();
+
         if (Input.GetKeyDown(KeyCode.Space) && Time.time >= nextAttackTime)
         {
             Attack();
@@ -32,7 +45,7 @@ public class PlayerCombat : MonoBehaviour
             EnemyHealth enemyHealth = hit.GetComponent<EnemyHealth>();
 
             if (enemyHealth != null)
-                enemyHealth.TakeDamage(attackDamage);
+                enemyHealth.TakeDamage(attackDamage, transform.position);
         }
     }
 
@@ -43,5 +56,43 @@ public class PlayerCombat : MonoBehaviour
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private void DrawAttackCircle()
+    {
+        if (attackCircle == null)
+            return;
+
+        attackCircle.useWorldSpace = false;
+        attackCircle.loop = true;
+        attackCircle.positionCount = circleSegments;
+        attackCircle.startWidth = 0.03f;
+        attackCircle.endWidth = 0.03f;
+
+        for (int i = 0; i < circleSegments; i++)
+        {
+            float angle = i * Mathf.PI * 2f / circleSegments;
+
+            float x = Mathf.Cos(angle) * attackRange;
+            float y = Mathf.Sin(angle) * attackRange;
+
+            attackCircle.SetPosition(
+            i,
+            new Vector3(x, y, 0)
+            );
+        }
+    }
+
+    private void UpdateAttackDirection()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector2 moveDirection = new Vector2(horizontal, vertical);
+
+        if (moveDirection != Vector2.zero)
+            lastMoveDirection = moveDirection.normalized;
+
+        attackPoint.localPosition = (Vector3)(lastMoveDirection * attackPointDistance);
     }
 }

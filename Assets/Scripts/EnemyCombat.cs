@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyCombat : MonoBehaviour
@@ -9,14 +10,15 @@ public class EnemyCombat : MonoBehaviour
     private float nextAttackTime;
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(!collision.gameObject.CompareTag("Player")) return;
+        if (!collision.gameObject.CompareTag("Player")) return;
 
-        if(Time.time < nextAttackTime) return;
+        if (Time.time < nextAttackTime) return;
 
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
 
-        if(playerHealth != null)
+        if (playerHealth != null)
         {
+            Debug.Log("Take damage from: " + name);
             playerHealth.TakeDamage(damage);
             nextAttackTime = Time.time + attackCooldown;
         }
