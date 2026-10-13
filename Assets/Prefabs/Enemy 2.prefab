@@ -137,7 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f9b6d7419dc4fb9a124ae426fedf18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  knockbackForce: 5
   maxHealth: 50
+  knockbackDuration: 0.2
+  scoreReward: 300
+  gameScore: {fileID: 0}
 --- !u!114 &6786879426745002629
 MonoBehaviour:
   m_ObjectHideFlags: 0

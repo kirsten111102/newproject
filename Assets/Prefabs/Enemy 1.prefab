@@ -137,7 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13f9b6d7419dc4fb9a124ae426fedf18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  knockbackForce: 5
   maxHealth: 50
+  knockbackDuration: 0.2
+  scoreReward: 150
+  gameScore: {fileID: 0}
 --- !u!114 &6786879426745002629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e529bb4e1224065885975bfe0176c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  moveSpeed: 2
+  moveSpeed: 6
 --- !u!114 &-4199847717524573
 MonoBehaviour:
   m_ObjectHideFlags: 0

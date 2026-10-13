@@ -1,10 +1,19 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
     /*[SerializeField]
     private int attackDmg = 10;*/
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private PlayerInventory playerInventory;
+    [SerializeField]
+    private GameScore gameScore;
+
+    private void Awake()
+    {
+        playerInventory = GetComponent<PlayerInventory>();
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
@@ -20,10 +29,22 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Coin"))
+        if (!collision.CompareTag("Coin")) return;
+
+        if (playerInventory == null || gameScore == null) return;
+
+        string coinName = collision.gameObject.name.Trim();
+        var points = coinName switch
         {
-            Destroy(collision.gameObject);
-            Debug.Log("Congrats, you get a coin!");
-        }
+            "BronzeCoin" => 1,
+            "SilverCoin" => 5,
+            "GoldenCoin" => 10,
+            _ => 1,
+        };
+
+        playerInventory.AddCoin(1);
+        gameScore.AddScore(points);
+        Destroy(collision.gameObject);
+        //Debug.Log("Congrats, you get a coin!");
     }
 }
