@@ -14,6 +14,10 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     private float knockbackDuration = 0.2f;
     private EnemyMovement enemyMovement;
+    [SerializeField]
+    private int scoreReward = 20;
+    [SerializeField]
+    private GameScore gameScore;
 
     [System.Obsolete]
     private void Awake()
@@ -39,6 +43,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+        if (gameScore != null) gameScore.AddScore(scoreReward);
         if (enemySpawner != null) enemySpawner.spawnEnemy();
         Destroy(gameObject);
     }
