@@ -3,10 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameScore gameScore;
+
     private bool isGameOver;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     private void Start()
     {
         if (gameOverPanel != null)
@@ -19,6 +20,11 @@ public class GameManager : MonoBehaviour
 
         isGameOver = true;
 
+        // Update the final score text
+        if (gameScore != null)
+            gameScore.GameOver();
+
+        // Display the Game Over panel
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
     }

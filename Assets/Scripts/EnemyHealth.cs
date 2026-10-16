@@ -27,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         enemyMovement = GetComponent<EnemyMovement>();
     }
+
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
         if (isDead || damage <= 0) return;
@@ -39,12 +40,20 @@ public class EnemyHealth : MonoBehaviour
 
         ApplyKnockback(attackerPosition);
     }
+
     private void Die()
     {
         if (isDead) return;
         isDead = true;
-        if (gameScore != null) gameScore.AddScore(scoreReward);
-        if (enemySpawner != null) enemySpawner.spawnEnemy();
+
+        if (gameScore != null)
+            gameScore.AddScore(scoreReward);
+
+        if (enemySpawner != null)
+        {
+            enemySpawner.SpawnRandomEnemy();
+        }
+
         Destroy(gameObject);
     }
 

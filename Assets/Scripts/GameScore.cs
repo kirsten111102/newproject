@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class GameScore : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameScore : MonoBehaviour
     {
         get { return score; }
     }
+    [SerializeField] private TextMeshProUGUI finalScoreText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -34,5 +36,11 @@ public class GameScore : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
             AddScore(10);
+    }
+
+    public void GameOver()
+    {
+        if (finalScoreText != null)
+            finalScoreText.text = "Final Score: " + score;
     }
 }

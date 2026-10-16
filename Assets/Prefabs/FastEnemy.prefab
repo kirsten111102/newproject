@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1431401194616410169}
   - component: {fileID: 5139813320426386149}
   - component: {fileID: 6786879426745002629}
-  - component: {fileID: 6247182888337091109}
+  - component: {fileID: -4199847717524573}
   m_Layer: 8
-  m_Name: Enemy 2
+  m_Name: FastEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   knockbackForce: 5
   maxHealth: 50
   knockbackDuration: 0.2
-  scoreReward: 300
+  scoreReward: 150
   gameScore: {fileID: 0}
 --- !u!114 &6786879426745002629
 MonoBehaviour:
@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e529bb4e1224065885975bfe0176c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  moveSpeed: 2
---- !u!114 &6247182888337091109
+  moveSpeed: 6
+--- !u!114 &-4199847717524573
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978eff8e26de64d8c81f82f4eac2d06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
-  damage: 20
+  damage: 5
   attackCooldown: 1
 --- !u!1 &3601863200069844351
 GameObject:
