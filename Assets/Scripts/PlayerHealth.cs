@@ -42,4 +42,13 @@ public class PlayerHealth : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+
+    public void Heal(int amount)
+    {
+        if (amount <= 0) return;
+
+        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+
+        if (healthBarUI != null) healthBarUI.SetHealth(currentHealth);
+    }
 }

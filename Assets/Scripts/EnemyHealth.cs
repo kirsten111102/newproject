@@ -23,9 +23,15 @@ public class EnemyHealth : MonoBehaviour
     private void Awake()
     {
         currentHealth = maxHealth;
-        enemySpawner = FindFirstObjectByType<EnemySpawner>();
+        //enemySpawner = FindFirstObjectByType<EnemySpawner>();
         rb = GetComponent<Rigidbody2D>();
+        gameScore = FindFirstObjectByType<GameScore>();
         enemyMovement = GetComponent<EnemyMovement>();
+    }
+
+    public void SetSpawner(EnemySpawner spawner)
+    {
+        enemySpawner = spawner;
     }
 
     public void TakeDamage(int damage, Vector2 attackerPosition)
@@ -40,20 +46,12 @@ public class EnemyHealth : MonoBehaviour
 
         ApplyKnockback(attackerPosition);
     }
-
     private void Die()
     {
         if (isDead) return;
         isDead = true;
-
-        if (gameScore != null)
-            gameScore.AddScore(scoreReward);
-
-        if (enemySpawner != null)
-        {
-            enemySpawner.SpawnRandomEnemy();
-        }
-
+        if (gameScore != null) gameScore.AddScore(scoreReward);
+        if (enemySpawner != null) enemySpawner.SpawnEnemy();
         Destroy(gameObject);
     }
 

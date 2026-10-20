@@ -1,74 +1,41 @@
-
+using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] enemyPrefabs;
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField]
+    private GameObject enemyPrefab;
+    [SerializeField]
+    private float respawnDelay = 2f;
 
-    public void SpawnSpecificEnemy(int enemyIndex)
+    private void Start()
     {
-        if (enemyPrefabs == null ||
-            enemyIndex < 0 ||
-            enemyIndex >= enemyPrefabs.Length)
-        {
-            Debug.LogWarning("Invalid enemy index!");
-            return;
-        }
-
-        SpawnEnemy(enemyPrefabs[enemyIndex]);
+        SpawnEnemyImmediately();
     }
 
-    public void SpawnRandomEnemy()
+    public void SpawnEnemyImmediately()
     {
-        if (enemyPrefabs == null || enemyPrefabs.Length == 0)
-        {
-            Debug.LogWarning("No enemy prefabs assigned!");
-            return;
-        }
-
-        // Only choose valid prefab references.
-        List<GameObject> validPrefabs = new List<GameObject>();
-
-        foreach (GameObject prefab in enemyPrefabs)
-        {
-            if (prefab != null)
-            {
-                validPrefabs.Add(prefab);
-            }
-        }
-
-        if (validPrefabs.Count == 0)
-        {
-            Debug.LogError(
-                "All enemy prefab references are missing!"
-            );
-            return;
-        }
-
-        int randomIndex = Random.Range(0, validPrefabs.Count);
-        SpawnEnemy(validPrefabs[randomIndex]);
-    }
-
-    private void SpawnEnemy(GameObject prefab)
-    {
-        if (prefab == null)
-        {
-            Debug.LogWarning("The selected enemy prefab is missing!");
-            return;
-        }
-
-        if (spawnPoint == null)
-        {
-            Debug.LogWarning("Spawn Point is not assigned!");
-            return;
-        }
-
-        Instantiate(
-            prefab,
-            spawnPoint.position,
-            spawnPoint.rotation
+        GameObject enemy = Instantiate(
+            enemyPrefab, transform.position, Quaternion.identity
         );
+
+
+        if (enemy.TryGetComponent<EnemyHealth>(out var enemyHealth))
+        {
+            enemyHealth.SetSpawner(this);
+        }
+
+    }
+
+    private IEnumerator SpawnEnemyWithDelay()
+    {
+        yield return new WaitForSeconds(respawnDelay);
+
+        SpawnEnemyImmediately();
+    }
+
+    public void SpawnEnemy()
+    {
+        StartCoroutine(SpawnEnemyWithDelay());
     }
 }
