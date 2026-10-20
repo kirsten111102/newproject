@@ -5,15 +5,27 @@ public class PlayerHealth : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField]
     private int maxHealth = 100;
-    private int currentHealth;
     [SerializeField]
     private HealthBarUI healthBarUI;
     [SerializeField]
     private GameManager gameManager;
-    // private void Awake()
-    // {
-    //     currentHealth = maxHealth;
-    // }
+    private int currentHealth;
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+    }
+    
+    public void SetHealth(int health)
+    {
+        currentHealth = Mathf.Clamp(health, 0, maxHealth);
+        
+        SaveHealth();
+
+        if(healthBarUI != null)
+            healthBarUI.SetHealth(currentHealth);
+        if(currentHealth == 0 && gameObject.activeSelf)
+            Die();
+    }
 
     private void Start()
     {

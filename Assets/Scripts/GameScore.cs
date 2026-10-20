@@ -11,6 +11,20 @@ public class GameScore : MonoBehaviour
         get { return score; }
     }
     [SerializeField] private TextMeshProUGUI finalScoreText;
+
+    public void SetScore(int value)
+    {
+        score = Mathf.Max(value, 0);
+
+        if (GameSession.Instance != null)
+            GameSession.Instance.Score = score;
+
+        if (PersistentGameManager.Instance != null)
+            PersistentGameManager.Instance.UpdateHighScore(score);
+
+        UpdateUI();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
@@ -30,6 +44,8 @@ public class GameScore : MonoBehaviour
         if (amount <= 0) return;
 
         score += amount;
+        SetScore(score + amount);
+
         if (GameSession.Instance != null)
         {
             GameSession.Instance.Score = score;
