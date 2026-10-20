@@ -10,20 +10,38 @@ public class PlayerHealth : MonoBehaviour
     private HealthBarUI healthBarUI;
     [SerializeField]
     private GameManager gameManager;
-    private void Awake()
-    {
-        currentHealth = maxHealth;
-    }
+    // private void Awake()
+    // {
+    //     currentHealth = maxHealth;
+    // }
 
     private void Start()
     {
+        if (GameSession.Instance != null &&
+        GameSession.Instance.HasSavedHealth)
+        {
+            currentHealth = Mathf.Clamp(
+            GameSession.Instance.CurrentHealth,
+            0,
+            maxHealth
+            );
+        }
+        else
+        {
+            currentHealth = maxHealth;
+            SaveHealth();
+        }
+
         if (healthBarUI != null)
+        {
             healthBarUI.SetMaxHealth(maxHealth);
+            healthBarUI.SetHealth(currentHealth);
+        }
     }
 
     public void TakeDamage(int damage)
     {
-        if (damage <= 0) return;
+        if (damage <= 0 || currentHealth == 0) return;
 
         currentHealth = Mathf.Max(currentHealth - damage, 0);
 
@@ -31,6 +49,7 @@ public class PlayerHealth : MonoBehaviour
         if (healthBarUI != null)
             healthBarUI.SetHealth(currentHealth);
 
+        UpdateHealth();
         if (currentHealth == 0) Die();
     }
     private void Die()
@@ -45,10 +64,29 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(int amount)
     {
-        if (amount <= 0) return;
+        if (amount <= 0 || currentHealth == 0) return;
 
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
 
         if (healthBarUI != null) healthBarUI.SetHealth(currentHealth);
+
+        UpdateHealth();
+    }
+
+    private void UpdateHealth()
+    {
+        SaveHealth();
+
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetHealth(currentHealth);
+        }
+    }
+    private void SaveHealth()
+    {
+        if (GameSession.Instance != null)
+        {
+            GameSession.Instance.SaveHealth(currentHealth);
+        }
     }
 }
