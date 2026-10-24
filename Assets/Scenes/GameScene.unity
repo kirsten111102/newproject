@@ -307,7 +307,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackCooldown: 1
+  attackCooldown: 0.5
   attackPointDistance: 2
   attackCircle: {fileID: 508230689}
   circleSegments: 60
@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 144111491}
   - component: {fileID: 144111490}
   - component: {fileID: 144111489}
+  - component: {fileID: 144111492}
   m_Layer: 6
   m_Name: GoldenCoin
   m_TagString: Coin
@@ -916,6 +917,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &144111492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144111488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3fbd0d0f20843d58da6d7a97a7eadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  uniqueId: gold_coin_01
 --- !u!1 &204710198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,8 +1972,9 @@ GameObject:
   - component: {fileID: 520040173}
   - component: {fileID: 520040172}
   - component: {fileID: 520040171}
+  - component: {fileID: 520040175}
   m_Layer: 10
-  m_Name: HealthPotion (1)
+  m_Name: LargeHealthPotion
   m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1977,8 +1992,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127d4a3e5b6bb4499b62936d9f8461a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
-  itemId: 1
-  itemName: Health Potion
+  itemId: 2
+  itemName: Large Health Potion
   quantity: 1
 --- !u!212 &520040172
 SpriteRenderer:
@@ -2095,12 +2110,25 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8, y: 2, z: -0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 614251738}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520040175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520040170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3fbd0d0f20843d58da6d7a97a7eadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  uniqueId: hp_large_01
 --- !u!1 &555922978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,6 +2729,7 @@ MonoBehaviour:
   gameScore: {fileID: 2135835337}
   gameManager: {fileID: 2135835335}
   playerInventory: {fileID: 13252194}
+  worldItemManager: {fileID: 1369292220}
 --- !u!114 &749606496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3754,6 +3783,7 @@ GameObject:
   - component: {fileID: 1087163287}
   - component: {fileID: 1087163286}
   - component: {fileID: 1087163285}
+  - component: {fileID: 1087163288}
   m_Layer: 6
   m_Name: BronzeCoin
   m_TagString: Coin
@@ -3871,6 +3901,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1087163288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087163284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3fbd0d0f20843d58da6d7a97a7eadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  uniqueId: bronze_coin_01
 --- !u!1 &1099354919
 GameObject:
   m_ObjectHideFlags: 0
@@ -4325,7 +4368,51 @@ Transform:
   m_GameObject: {fileID: 1297668629}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -3, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1369292219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1369292221}
+  - component: {fileID: 1369292220}
+  m_Layer: 0
+  m_Name: WorldItemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1369292220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369292219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6d42858b7774cffbedc74194112f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldItemManager
+--- !u!4 &1369292221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369292219}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 199.99997, y: 173.33331, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4371,7 +4458,7 @@ Transform:
   m_GameObject: {fileID: 1378259013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: -3, z: 0}
+  m_LocalPosition: {x: 4, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5011,6 +5098,7 @@ GameObject:
   - component: {fileID: 1684311145}
   - component: {fileID: 1684311144}
   - component: {fileID: 1684311143}
+  - component: {fileID: 1684311146}
   m_Layer: 6
   m_Name: SilverCoin
   m_TagString: Coin
@@ -5128,6 +5216,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684311146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684311142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3fbd0d0f20843d58da6d7a97a7eadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  uniqueId: silver_coin_01
 --- !u!1 &1717974042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5364,8 +5465,9 @@ GameObject:
   - component: {fileID: 1774954044}
   - component: {fileID: 1774954043}
   - component: {fileID: 1774954042}
+  - component: {fileID: 1774954046}
   m_Layer: 10
-  m_Name: HealthPotion
+  m_Name: SmallHealthPotion
   m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5384,7 +5486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPickup
   itemId: 1
-  itemName: Health Potion
+  itemName: Small Health Potion
   quantity: 1
 --- !u!212 &1774954043
 SpriteRenderer:
@@ -5507,6 +5609,19 @@ Transform:
   - {fileID: 344497041}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1774954046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774954041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3fbd0d0f20843d58da6d7a97a7eadd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  uniqueId: hp_small_01
 --- !u!1 &1775188042
 GameObject:
   m_ObjectHideFlags: 0
@@ -5629,7 +5744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1856136914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5852,3 +5967,4 @@ SceneRoots:
   - {fileID: 499043700}
   - {fileID: 130031109}
   - {fileID: 749606497}
+  - {fileID: 1369292221}

@@ -8,19 +8,14 @@ public class EnemyCombat : MonoBehaviour
     [SerializeField]
     private float attackCooldown = 1f;
     private float nextAttackTime;
-    void OnCollisionStay2D(Collision2D collision)
+    public void TryAttack(Transform target)
     {
-        if (!collision.gameObject.CompareTag("Player")) return;
-
+        if (target == null) return;
         if (Time.time < nextAttackTime) return;
+        PlayerHealth playerHealth = target.gameObject.GetComponent<PlayerHealth>();
+        if (!target.gameObject.TryGetComponent<PlayerHealth>(out var PlayerHealth)) return;
 
-        PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-
-        if (playerHealth != null)
-        {
-            Debug.Log("Take damage from: " + name);
-            playerHealth.TakeDamage(damage);
-            nextAttackTime = Time.time + attackCooldown;
-        }
+        playerHealth.TakeDamage(damage);
+        nextAttackTime = Time.time + attackCooldown;
     }
 }
