@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5139813320426386149}
   - component: {fileID: 6786879426745002629}
   - component: {fileID: 6247182888337091109}
+  - component: {fileID: 6266354331391647155}
   m_Layer: 8
   m_Name: TankEnemy
   m_TagString: Enemy
@@ -111,8 +112,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 10
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -169,6 +170,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCombat
   damage: 20
   attackCooldown: 1
+--- !u!114 &6266354331391647155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724025342005369583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b8374b63dbc419cba6fef59bc478f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  player: {fileID: 0}
+  moveSpeed: 3
+  chaseRange: 6
+  attackRange: 1.5
 --- !u!1 &3601863200069844351
 GameObject:
   m_ObjectHideFlags: 0
