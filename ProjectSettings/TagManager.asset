@@ -45,8 +45,29 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Pickup
-    uniqueID: 998490209
+  - name: Ground
+    uniqueID: 331929541
+    locked: 0
+  - name: Background
+    uniqueID: 514936529
+    locked: 0
+  - name: GroundDetails
+    uniqueID: 973447643
+    locked: 0
+  - name: Environment
+    uniqueID: 2806748627
+    locked: 0
+  - name: Characters
+    uniqueID: 2315029
+    locked: 0
+  - name: Foreground
+    uniqueID: 684322907
+    locked: 0
+  - name: Items
+    uniqueID: 3100875583
+    locked: 0
+  - name: Monsters
+    uniqueID: 2064755507
     locked: 0
   m_RenderingLayers:
   - Default

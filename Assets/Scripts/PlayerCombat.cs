@@ -20,6 +20,7 @@ public class PlayerCombat : MonoBehaviour
     private LineRenderer attackCircle;
     [SerializeField]
     private int circleSegments = 60;
+    [SerializeField] private Animator animator;
     private void Start()
     {
         DrawAttackCircle();
@@ -38,6 +39,12 @@ public class PlayerCombat : MonoBehaviour
 
     private void Attack()
     {
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+            animator.SetBool("IsAttacking", true);
+        }
+
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider2D hit in hits)
@@ -94,5 +101,14 @@ public class PlayerCombat : MonoBehaviour
             lastMoveDirection = moveDirection.normalized;
 
         attackPoint.localPosition = (Vector3)(lastMoveDirection * attackPointDistance);
+    }
+
+    public void EndAttackAnimation()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("IsAttacking", false);
+            animator.ResetTrigger("Attack");
+        }
     }
 }

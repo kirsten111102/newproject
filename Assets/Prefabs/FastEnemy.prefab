@@ -186,6 +186,10 @@ MonoBehaviour:
   moveSpeed: 4
   chaseRange: 6
   attackRange: 1.5
+  patrolDistance: 2
+  patrolSpeed: 1.5
+  patrolWaitTime: 1
+  homeThreshold: 0.1
 --- !u!1 &3601863200069844351
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,8 +267,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2064755507
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: d86305096b9144fb28053e165f389d1f, type: 3}

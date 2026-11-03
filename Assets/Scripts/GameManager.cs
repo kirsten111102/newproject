@@ -6,8 +6,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameScore gameScore;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private TMPro.TextMeshProUGUI finalScoreText;
+    [SerializeField] private NetworkManager networkManager;
+    [SerializeField] private GameObject player;
     private bool isPaused;
-
     private bool isGameOver;
 
     private void Start()
@@ -24,18 +26,22 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         if (isGameOver) return;
-
         isGameOver = true;
+        isPaused = false;
 
-        // Update the final score text
-        if (gameScore != null)
-            gameScore.GameOver();
-
-        // Display the Game Over panel
-        if (gameOverPanel != null)
-            gameOverPanel.SetActive(true);
-
-        Time.timeScale = 0f; // Pause the game
+        if (
+        gameScore != null &&
+        finalScoreText != null &&
+        networkManager != null &&
+        player != null
+        )
+        {
+            finalScoreText.SetText("Final Score: {0:0}", gameScore.Score);
+            networkManager.SendScore(player.name, gameScore.Score);
+        }
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        if (pausePanel != null) pausePanel.SetActive(false);
+        Time.timeScale = 0f;
     }
 
     public void RestartGame()
